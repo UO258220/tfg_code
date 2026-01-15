@@ -1,5 +1,4 @@
-// @ts-ignore - WASM module generated at build time
-import init, { greet, Calculator } from "../pkg/tfg_wasm.js";
+import init from "../pkg/tfg_wasm.js?init";
 
 let wasmModule: any;
 
@@ -12,7 +11,7 @@ window.handleGreet = (): void => {
   const result = document.getElementById("greeting-result");
 
   if (input && result && wasmModule) {
-    const greeting = greet(input.value || "World");
+    const greeting = wasmModule.greet(input.value || "World");
     result.textContent = greeting;
   }
 };
@@ -32,7 +31,7 @@ window.handleCalculate = (operation: string): void => {
     return;
   }
 
-  const calculator = new Calculator();
+  const calculator = new wasmModule.Calculator();
   let result: number;
 
   switch (operation) {

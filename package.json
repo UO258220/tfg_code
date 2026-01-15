@@ -4,23 +4,21 @@
   "private": true,
   "description": "Rust + WebAssembly Project",
   "scripts": {
-    "start": "parcel static/index.html",
-    "build": "parcel build static/index.html",
-    "build:rust": "wasm-pack build --target bundler",
+    "start": "vite",
+    "build": "npm run build:rust && vite build && cp -r pkg dist/",
+    "build:rust": "wasm-pack build --target bundler && cp -r pkg static/",
     "dev": "npm run build:rust && npm run start",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@parcel/config-default": "^2.14.2",
-    "@parcel/transformer-raw": "^2.14.2",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
     "eslint": "^8.46.0",
-    "parcel": "^2.14.2",
-    "parcel-reporter-static-files-copy": "^1.5.3",
     "prettier": "3.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite": "^7.3.1",
+    "vite-plugin-wasm": "^3.5.0"
   }
 }
