@@ -1,5 +1,5 @@
 **RDF VALIDATOR**
 
-Rust + WebAssembly
-SHACL
-Rudof
+- Rust + WebAssembly
+- SHACL
+- Rudof
