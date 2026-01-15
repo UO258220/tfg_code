@@ -1,0 +1,11 @@
+node_modules/
+dist/
+target/
+*.wasm
+*.js
+*.d.ts
+.DS_Store
+.env
+.env.local
+/pkg/
+/wasm-pack.log

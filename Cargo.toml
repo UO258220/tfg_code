@@ -1,0 +1,30 @@
+[package]
+name = "tfg-wasm"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <you@example.com>"]
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+lto = true
+opt-level = "z"
+
+[dependencies]
+wasm-bindgen = "=0.2.100"
+serde-wasm-bindgen = "0.6.5"
+web-sys = { version = "0.3", features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "Console",
+    "Storage",
+] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[dev-dependencies]
+wasm-bindgen-test = "1"

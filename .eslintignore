@@ -1,0 +1,16 @@
+{
+  "extends": "eslint:recommended",
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module"
+      }
+    }
+  ]
+}
