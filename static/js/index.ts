@@ -1,8 +1,9 @@
+// @ts-ignore - WASM module generated at build time
 import init, { greet, Calculator } from "../pkg/tfg_wasm.js";
 
 let wasmModule: any;
 
-async function initWasm() {
+async function initWasm(): Promise<void> {
   wasmModule = await init();
 }
 
