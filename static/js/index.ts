@@ -1,9 +1,9 @@
-import init from "../pkg/tfg_wasm.js?init";
+import * as wasm from "../pkg/tfg_wasm.js";
 
 let wasmModule: any;
 
 async function initWasm(): Promise<void> {
-  wasmModule = await init();
+  wasmModule = wasm;
 }
 
 window.handleGreet = (): void => {

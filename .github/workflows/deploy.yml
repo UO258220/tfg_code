@@ -1,0 +1,32 @@
+name: GH Pages deploy
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - run: npm ci
+      
+      - run: npm install -g wasm-pack
+      
+      - run: npm run build
+      
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
