@@ -16,13 +16,15 @@ jobs:
           toolchain: stable
           target: wasm32-unknown-unknown
       
+      - uses: jetli/wasm-pack-action@v1
+        with:
+          version: 'latest'
+      
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
       
       - run: npm ci
-      
-      - run: npm install -g wasm-pack
       
       - run: npm run build
       
