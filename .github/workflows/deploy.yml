@@ -27,6 +27,9 @@ jobs:
       - run: npm ci
       
       - run: npm run build
+        env:
+          GITHUB_PAGES: 'true'
+          REPO_NAME: ${{ github.event.repository.name }}  // Variable entorno
       
       - run: ls -la dist/
       

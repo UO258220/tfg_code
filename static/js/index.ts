@@ -1,3 +1,4 @@
+import "../css/style.css";
 import * as wasm from "../pkg/tfg_wasm.js";
 
 let wasmModule: any;
