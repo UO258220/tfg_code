@@ -14,6 +14,12 @@ async function initWasm(): Promise<void> {
   wasmModule = wasm;
 }
 
+export async function handleValidateRDF() {
+    await validateRDF();
+}
+
+window.handleValidateRDF = handleValidateRDF;
+
 // window.handleCalculate = (operation: string): void => {
 //   const num1Input = document.getElementById("num1") as HTMLInputElement;
 //   const num2Input = document.getElementById("num2") as HTMLInputElement;
@@ -55,7 +61,5 @@ async function initWasm(): Promise<void> {
 
 //   resultElement.textContent = `Result: ${result}`;
 // };
-
-window.handleValidateRDF = validateRDF;
 
 initWasm().catch(console.error);
