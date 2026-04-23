@@ -5,7 +5,7 @@ const isGithubPages = process.env.GITHUB_PAGES === 'true'
 const repoName = process.env.REPO_NAME || 'tfg-code'
 
 export default defineConfig({
-  base: isGithubPages ? `/${repoName}/` : '/',
+  base: isGithubPages ? `/${repoName}/` : './',
   plugins: [wasm()],
   root: './static',
   server: {
@@ -13,5 +13,6 @@ export default defineConfig({
   },
   build: {
     outDir: '../dist',
+    emptyOutDir: true,
   },
 })
