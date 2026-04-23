@@ -3,34 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rust + WebAssembly Project</title>
+  <title>WASM RDF Validator</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Rust + WebAssembly Demo</h1>
-    <div class="section">
-      <h2>Greeting</h2>
-      <input type="text" id="name-input" placeholder="Enter your name" />
-      <button onclick="handleGreet()">Greet</button>
-      <p id="greeting-result"></p>
+  <nav class="topbar">
+    <div class="topbar__brand">
+      <span class="logo">WASM RDF Validator</span>
     </div>
+    <div class="topbar__links">
+      <a href="#" class="topbar__link">Home</a>
+      <a href="https://github.com/UO258220/tfg_code" class="topbar__link">Docs</a>
+      <a href="#" class="topbar__link">About</a>
+    </div>
+  </nav>
 
-    <div class="section">
-      <h2>Calculator</h2>
-      <div class="calculator">
-        <input type="number" id="num1" placeholder="Number 1" />
-        <input type="number" id="num2" placeholder="Number 2" />
-        <div class="button-group">
-          <button onclick="handleCalculate('add')">+</button>
-          <button onclick="handleCalculate('subtract')">-</button>
-          <button onclick="handleCalculate('multiply')">×</button>
-          <button onclick="handleCalculate('divide')">÷</button>
-        </div>
-        <p id="calc-result"></p>
+  <main class="page">
+    <section class="hero">
+      <div class="hero__content">
+        <h1>Validate RDF with SHACL</h1>
+        <p>Paste your RDF document and get instant validation feedback from the backend service.</p>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <section class="app-shell">
+      <div class="panel panel--input">
+        <div class="panel__header">
+          <div>
+            <h2>RDF Input</h2>
+            <p class="panel__subtitle">Paste RDF data below</p>
+          </div>
+        </div>
+
+        <textarea id="rdf-input" class="editor" placeholder="Paste RDF data here"></textarea>
+
+        <div class="panel__actions">
+          <button class="button-27" onclick="handleValidateRDF()">Validate RDF</button>
+        </div>
+      </div>
+
+      <div class="panel panel--output">
+        <div class="panel__header">
+          <div>
+            <h2>Validation Result</h2>
+            <p class="panel__subtitle">Status and details appear here.</p>
+          </div>
+        </div>
+
+        <div id="rdf-result" class="result-card status-info">Enter RDF text and click Validate.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Built with Rust + WebAssembly · Keep your RDF shapes valid.</p>
+    </footer>
+  </main>
 
   <script type="module" src="./js/index.ts"></script>
 </body>

@@ -5,9 +5,10 @@
   "description": "Rust + WebAssembly Project",
   "scripts": {
     "start": "vite",
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "npm run build:rust && vite build && cp -r pkg dist/",
     "build:rust": "wasm-pack build --target bundler && cp -r pkg static/",
-    "dev": "npm run build:rust && npm run start",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -15,10 +16,15 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "concurrently": "^9.2.1",
     "eslint": "^8.46.0",
     "prettier": "3.0.0",
     "typescript": "^5.2.2",
     "vite": "^7.3.1",
     "vite-plugin-wasm": "^3.5.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
   }
 }
