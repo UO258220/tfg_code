@@ -1,6 +1,5 @@
 mod utils;
-pub mod geometry;
-pub mod math;
+mod validators;
 
 use wasm_bindgen::prelude::*;
 
