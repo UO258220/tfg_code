@@ -30,15 +30,24 @@
       <div class="panel panel--input">
         <div class="panel__header">
           <div>
-            <h2>RDF Input</h2>
-            <p class="panel__subtitle">Paste RDF data below</p>
+            <h2>Data Input</h2>
+            <p class="panel__subtitle">Paste data below for validation</p>
+          </div>
+          <div class="validation-selector">
+            <label for="validation-type">Validation Type:</label>
+            <select id="validation-type" class="validation-select">
+              <option value="rdf">RDF Syntax</option>
+              <option value="shacl">SHACL</option>
+              <option value="sparql">SPARQL</option>
+              <option value="schema">Schema.org</option>
+            </select>
           </div>
         </div>
 
-        <textarea id="rdf-input" class="editor" placeholder="Paste RDF data here"></textarea>
+        <textarea id="rdf-input" class="editor" placeholder="Paste data to validate here"></textarea>
 
         <div class="panel__actions">
-          <button class="button-27" onclick="handleValidateRDF()">Validate RDF</button>
+          <button class="button-27" onclick="handleValidateRDF()">Validate</button>
         </div>
       </div>
 
