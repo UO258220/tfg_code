@@ -71,8 +71,14 @@ body::before {
   color: var(--accent);
 }
 
+.topbar__link.active {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .page {
-  max-width: 1100px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 100px 1.75rem 3rem;
   position: relative;
@@ -102,7 +108,7 @@ body::before {
 
 .app-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+  grid-template-columns: minmax(0, 1.46fr) minmax(432px, 1.14fr);
   gap: 1.75rem;
 }
 
@@ -132,6 +138,18 @@ body::before {
   margin: 0.25rem 0 0;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.shacl-label {
+  margin-top: 1.5rem;
 }
 
 .validation-selector {
@@ -172,7 +190,7 @@ body::before {
   color: var(--text);
   padding: 1.25rem;
   font-family: "Fira Code", monospace;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   resize: vertical;
 }
@@ -218,7 +236,76 @@ body::before {
   color: var(--text);
   white-space: pre-wrap;
   line-height: 1.75;
-  font-size: 1rem;
+  font-size: 0.92rem;
+}
+
+.result-secondary {
+  width: 100%;
+  min-height: 260px;
+  margin-top: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(66, 153, 225, 0.35);
+  background: #ffffff;
+  padding: 1rem;
+  color: var(--text);
+  font-family: "Fira Code", monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.result-secondary[readonly] {
+  cursor: default;
+}
+
+.result-secondary:focus {
+  outline: 2px solid rgba(66, 153, 225, 0.4);
+  outline-offset: 2px;
+}
+
+.about-shell {
+  display: flex;
+  justify-content: center;
+}
+
+.about-card {
+  width: min(860px, 100%);
+}
+
+.about-card h2 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.about-list {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+  color: var(--text);
+}
+
+.about-list strong {
+  color: var(--muted);
+  margin-right: 0.35rem;
+}
+
+.validation-section {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.validation-section.status-valid {
+  color: #176f2c;
+  background-color: rgba(23, 111, 44, 0.05);
+  border-left-color: #176f2c;
+}
+
+.validation-section.status-invalid {
+  color: #b91c1c;
+  background-color: rgba(185, 28, 28, 0.05);
+  border-left-color: #b91c1c;
 }
 
 .status-valid {

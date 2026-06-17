@@ -1,48 +1,141 @@
 import { validateRDFSyntax } from "./validators/rdf";
-import { validateSHACL } from "./validators/shacl";
-import { validateSPARQL } from "./validators/sparql";
-import { validateSchema } from "./validators/schema";
-import { setResultState } from "./validators/utils";
+import { validateSHACLSyntax } from "./validators/shacl";
+import { validateRDFWithSHACLServer } from "./validators/semantics";
+import { ValidationResponse } from "./validators/types";
 
 /**
- * Main validation function that routes to specific validators based on type
+ * Main validation function that validates RDF syntax, SHACL shapes, and Schema.org.
  */
 export async function validateRDF(): Promise<void> {
   const rdfInput = document.getElementById("rdf-input") as HTMLTextAreaElement;
-  const validationTypeSelect = document.getElementById("validation-type") as HTMLSelectElement;
+  const shaclInput = document.getElementById("shacl-input") as HTMLTextAreaElement;
   const rdfResult = document.getElementById("rdf-result");
+  const secondaryResult = document.getElementById("rdf-result-secondary") as HTMLTextAreaElement;
 
-  if (!rdfInput || !validationTypeSelect || !rdfResult) return;
+  if (!rdfInput || !shaclInput || !rdfResult || !secondaryResult) return;
 
-  const inputText = rdfInput.value.trim();
-  const validationType = validationTypeSelect.value;
+  const rdfText = rdfInput.value.trim();
+  const shaclText = shaclInput.value.trim();
 
-  if (!inputText) {
-    setResultState(rdfResult, "Enter data to validate.", "status-info");
+  if (!rdfText && !shaclText) {
+    rdfResult.innerHTML = '<span class="status-info">Enter RDF data or SHACL shapes to validate.</span>';
+    rdfResult.className = "result-card";
+    secondaryResult.value = "";
     return;
   }
 
-  setResultState(rdfResult, `Validating using ${validationType.toUpperCase()}...`, "status-info");
+  secondaryResult.value = "";
 
-  try {
-    switch (validationType) {
-      case 'rdf':
-        await validateRDFSyntax(inputText, rdfResult);
-        break;
-      case 'shacl':
-        await validateSHACL(inputText, rdfResult);
-        break;
-      case 'sparql':
-        await validateSPARQL(inputText, rdfResult);
-        break;
-      case 'schema':
-        await validateSchema(inputText, rdfResult);
-        break;
-      default:
-        setResultState(rdfResult, "Unknown validation type selected.", "status-invalid");
+  const sections: Array<{ title: string; content: string; valid: boolean }> = [];
+  let overallValid = true;
+
+  // RDF Syntax validation
+  if (!rdfText) {
+    overallValid = false;
+    sections.push({
+      title: "RDF Syntax",
+      content: "✗ RDF input is required.",
+      valid: false,
+    });
+  } else {
+    const rdfResponse: ValidationResponse = validateRDFSyntax(rdfText);
+    if (!rdfResponse.valid) {
+      overallValid = false;
+      const errors = rdfResponse.violations
+        ?.map((v) => `  ✗ ${v.message || "Unknown RDF error"}`)
+        .join("\n") || `  ✗ ${rdfResponse.message || "Unknown validation error"}`;
+      sections.push({
+        title: "RDF Syntax",
+        content: errors,
+        valid: false,
+      });
+    } else {
+      sections.push({
+        title: "RDF Syntax",
+        content: `  ✓ ${rdfResponse.message || "Syntax is valid."}`,
+        valid: true,
+      });
     }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    setResultState(rdfResult, `Validation failed: ${errorMessage}`, "status-invalid");
   }
+
+  // SHACL syntax validation
+  if (!shaclText) {
+    sections.push({
+      title: "SHACL Syntax",
+      content: "ℹ No SHACL shapes provided.",
+      valid: true,
+    });
+  } else {
+    const shaclResponse: ValidationResponse = validateSHACLSyntax(shaclText);
+    if (!shaclResponse.valid) {
+      overallValid = false;
+      const errors = shaclResponse.violations
+        ?.map((v) => `  ✗ ${v.message || "Unknown SHACL error"}`)
+        .join("\n") || `  ✗ ${shaclResponse.message || "Unknown validation error"}`;
+      sections.push({
+        title: "SHACL Syntax",
+        content: errors,
+        valid: false,
+      });
+    } else {
+      sections.push({
+        title: "SHACL Syntax",
+        content: `  ✓ ${shaclResponse.message || "Syntax is valid."}`,
+        valid: true,
+      });
+    }
+  }
+
+  // RDF-over-SHACL syntactical validation
+  if (!rdfText || !shaclText) {
+    sections.push({
+      title: "RDF Conformance",
+      content: "ℹ Both RDF data and SHACL shapes required for conformance check.",
+      valid: true,
+    });
+  } else {
+    try {
+      const shaclValidationResponse: ValidationResponse = await validateRDFWithSHACLServer(rdfText, shaclText);
+      if (!shaclValidationResponse.valid) {
+        overallValid = false;
+        const errors = shaclValidationResponse.violations
+          ?.map((v) => `  ✗ ${v.message || "Unknown validation error"}`)
+          .join("\n") || `  ✗ ${shaclValidationResponse.message || "Unknown validation error"}`;
+        secondaryResult.value = shaclValidationResponse.report || "";
+        sections.push({
+          title: "RDF Conformance",
+          content: errors,
+          valid: false,
+        });
+      } else {
+        secondaryResult.value = shaclValidationResponse.report || "";
+        sections.push({
+          title: "RDF Conformance",
+          content: `  ✓ ${shaclValidationResponse.message || "RDF conforms to SHACL shapes."}`,
+          valid: true,
+        });
+      }
+    } catch (error) {
+      overallValid = false;
+      secondaryResult.value = "";
+      sections.push({
+        title: "RDF Conformance",
+        content: "  ✗ Could not validate conformance via backend service.",
+        valid: false,
+      });
+    }
+  }
+
+  // Build HTML with individual color classes
+  let html = "";
+  sections.forEach((section, index) => {
+    const statusClass = section.valid ? "status-valid" : "status-invalid";
+    html += `<div class="validation-section ${statusClass}"><strong>${section.title}</strong>\n${section.content}</div>`;
+    if (index < sections.length - 1) {
+      html += "\n";
+    }
+  });
+
+  rdfResult.innerHTML = html;
+  rdfResult.className = `result-card ${overallValid ? "status-valid" : "status-invalid"}`;
 }

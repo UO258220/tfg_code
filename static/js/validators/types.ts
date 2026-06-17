@@ -7,4 +7,5 @@ export interface ValidationResponse {
   valid: boolean;
   violations?: ValidationViolation[];
   message?: string;
+  report?: string;
 }

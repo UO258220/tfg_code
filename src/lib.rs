@@ -1,5 +1,5 @@
 mod utils;
-mod validators;
+pub mod validators;
 
 use wasm_bindgen::prelude::*;
 

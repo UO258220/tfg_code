@@ -9,6 +9,7 @@
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "npm run build:rust && vite build && cp -r pkg dist/",
     "build:rust": "wasm-pack build --target bundler && cp -r pkg static/",
+    "build:validate": "cargo build --bin validate_rdf_shacl",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

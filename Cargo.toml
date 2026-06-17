@@ -8,6 +8,10 @@ license = "Apache-2.0"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[[bin]]
+name = "validate_rdf_shacl"
+path = "src/validators/validate_schema.rs"
+
 [profile.release]
 lto = true
 opt-level = "z"
@@ -29,6 +33,12 @@ web-sys = { version = "0.3", features = [
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 console_error_panic_hook = { version = "0.1", optional = true }
+srdf = "0.1.147"
+shacl = "0.3.4"
+rudof_rdf = "0.3.4"
+
+[patch.crates-io]
+iri_s = { path = "patches/iri_s" }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
