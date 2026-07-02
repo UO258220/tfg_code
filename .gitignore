@@ -12,3 +12,8 @@ logs/
 dist/
 static/pkg/
 *.log
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

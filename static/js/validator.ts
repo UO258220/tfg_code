@@ -1,6 +1,6 @@
 import { validateRDFSyntax } from "./validators/rdf";
 import { validateSHACLSyntax } from "./validators/shacl";
-import { validateRDFWithSHACLServer } from "./validators/semantics";
+import { validateRDFWithSHACLServer } from "./validators/syntax";
 import { ValidationResponse } from "./validators/types";
 
 /**
@@ -17,9 +17,9 @@ export async function validateRDF(): Promise<void> {
   const rdfText = rdfInput.value.trim();
   const shaclText = shaclInput.value.trim();
 
-  if (!rdfText && !shaclText) {
-    rdfResult.innerHTML = '<span class="status-info">Enter RDF data or SHACL shapes to validate.</span>';
-    rdfResult.className = "result-card";
+  if (!rdfText || !shaclText) {
+    rdfResult.innerHTML = '<span class="status-info">Enter RDF data and SHACL shapes to validate.</span>';
+    rdfResult.className = "result-card status-info";
     secondaryResult.value = "";
     return;
   }
@@ -28,69 +28,56 @@ export async function validateRDF(): Promise<void> {
 
   const sections: Array<{ title: string; content: string; valid: boolean }> = [];
   let overallValid = true;
+  let rdfSyntaxValid = true;
+  let shaclSyntaxValid = true;
 
   // RDF Syntax validation
-  if (!rdfText) {
+  const rdfResponse: ValidationResponse = validateRDFSyntax(rdfText);
+  if (!rdfResponse.valid) {
+    rdfSyntaxValid = false;
     overallValid = false;
+    const errors = rdfResponse.violations
+      ?.map((v) => `  ✗ ${v.message || "Unknown RDF error"}`)
+      .join("\n") || `  ✗ ${rdfResponse.message || "Unknown validation error"}`;
     sections.push({
       title: "RDF Syntax",
-      content: "✗ RDF input is required.",
+      content: errors,
       valid: false,
     });
   } else {
-    const rdfResponse: ValidationResponse = validateRDFSyntax(rdfText);
-    if (!rdfResponse.valid) {
-      overallValid = false;
-      const errors = rdfResponse.violations
-        ?.map((v) => `  ✗ ${v.message || "Unknown RDF error"}`)
-        .join("\n") || `  ✗ ${rdfResponse.message || "Unknown validation error"}`;
-      sections.push({
-        title: "RDF Syntax",
-        content: errors,
-        valid: false,
-      });
-    } else {
-      sections.push({
-        title: "RDF Syntax",
-        content: `  ✓ ${rdfResponse.message || "Syntax is valid."}`,
-        valid: true,
-      });
-    }
+    sections.push({
+      title: "RDF Syntax",
+      content: `  ✓ ${rdfResponse.message || "Syntax is valid."}`,
+      valid: true,
+    });
   }
 
   // SHACL syntax validation
-  if (!shaclText) {
+  const shaclResponse: ValidationResponse = validateSHACLSyntax(shaclText);
+  if (!shaclResponse.valid) {
+    shaclSyntaxValid = false;
+    overallValid = false;
+    const errors = shaclResponse.violations
+      ?.map((v) => `  ✗ ${v.message || "Unknown SHACL error"}`)
+      .join("\n") || `  ✗ ${shaclResponse.message || "Unknown validation error"}`;
     sections.push({
       title: "SHACL Syntax",
-      content: "ℹ No SHACL shapes provided.",
-      valid: true,
+      content: errors,
+      valid: false,
     });
   } else {
-    const shaclResponse: ValidationResponse = validateSHACLSyntax(shaclText);
-    if (!shaclResponse.valid) {
-      overallValid = false;
-      const errors = shaclResponse.violations
-        ?.map((v) => `  ✗ ${v.message || "Unknown SHACL error"}`)
-        .join("\n") || `  ✗ ${shaclResponse.message || "Unknown validation error"}`;
-      sections.push({
-        title: "SHACL Syntax",
-        content: errors,
-        valid: false,
-      });
-    } else {
-      sections.push({
-        title: "SHACL Syntax",
-        content: `  ✓ ${shaclResponse.message || "Syntax is valid."}`,
-        valid: true,
-      });
-    }
+    sections.push({
+      title: "SHACL Syntax",
+      content: `  ✓ ${shaclResponse.message || "Syntax is valid."}`,
+      valid: true,
+    });
   }
 
   // RDF-over-SHACL syntactical validation
-  if (!rdfText || !shaclText) {
+  if (!rdfSyntaxValid || !shaclSyntaxValid) {
     sections.push({
       title: "RDF Conformance",
-      content: "ℹ Both RDF data and SHACL shapes required for conformance check.",
+      content: "ℹ Fix RDF/SHACL syntax errors before conformance check.",
       valid: true,
     });
   } else {

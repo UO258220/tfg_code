@@ -4,7 +4,9 @@ use oxrdf::{NamedNode, NamedOrBlankNode, Term};
 use serde::{Serialize, Serializer};
 use std::fmt;
 use std::fmt::{Display, Formatter};
+#[cfg(not(target_arch = "wasm32"))]
 use std::fs::canonicalize;
+#[cfg(not(target_arch = "wasm32"))]
 use std::path::Path;
 use std::str::FromStr;
 use url::Url;

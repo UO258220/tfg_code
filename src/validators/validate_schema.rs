@@ -1,10 +1,11 @@
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::fs::{self, OpenOptions};
-use std::io::{self, Read};
 use std::io::Write;
+use std::io::{self, Read};
 use std::time::{SystemTime, UNIX_EPOCH};
-use tfg_wasm::validators::common::{validate_rdf_with_shacl, ValidationResponse};
+use tfg_wasm::validators::common::ValidationResponse;
+use tfg_wasm::validators::syntax::validate_rdf_with_shacl;
 
 #[derive(Deserialize)]
 struct Input {
@@ -52,11 +53,7 @@ fn main() {
         .read_to_string(&mut raw)
         .expect("failed to read stdin");
 
-    log_event(
-        &request_id,
-        "request_received",
-        json!({ "raw_body": raw }),
-    );
+    log_event(&request_id, "request_received", json!({ "raw_body": raw }));
 
     let response = match serde_json::from_str::<Input>(&raw) {
         Ok(input) => {

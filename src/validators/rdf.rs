@@ -1,7 +1,7 @@
-use super::common::{ValidationViolation, ValidationResponse};
-use wasm_bindgen::prelude::*;
+use super::common::{ValidationResponse, ValidationViolation};
 use serde_wasm_bindgen::to_value;
 use srdf::{RDFFormat, ReaderMode, SRDFGraph};
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn validate_rdf_syntax(input: &str) -> JsValue {
@@ -10,7 +10,10 @@ pub fn validate_rdf_syntax(input: &str) -> JsValue {
     if input_text.is_empty() {
         let response = ValidationResponse::failure(
             None,
-            Some(vec![ValidationViolation::new("RDF input cannot be empty", Some("root"))]),
+            Some(vec![ValidationViolation::new(
+                "RDF input cannot be empty",
+                Some("root"),
+            )]),
         );
         return to_value(&response).unwrap();
     }

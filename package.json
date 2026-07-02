@@ -7,6 +7,11 @@
     "start": "vite",
     "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "test": "npm run test:navigation && npm run test:usability",
+    "test:navigation": "node tests/e2e/navigation.test.js",
+    "test:usability": "node tests/e2e/usability.test.js",
+    "test:ui:example": "node --test tests/e2e/about.example.test.js",
+    "test:load:empty-validation": "node tests/load/empty-validation.load.js",
     "build": "npm run build:rust && vite build && cp -r pkg dist/",
     "build:rust": "wasm-pack build --target bundler && cp -r pkg static/",
     "build:validate": "cargo build --bin validate_rdf_shacl",
@@ -17,9 +22,11 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "autocannon": "^8.0.0",
     "concurrently": "^9.2.1",
     "eslint": "^8.46.0",
     "prettier": "3.0.0",
+    "selenium-webdriver": "^4.34.0",
     "typescript": "^5.2.2",
     "vite": "^7.3.1",
     "vite-plugin-wasm": "^3.5.0"
