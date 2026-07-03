@@ -2,6 +2,7 @@ node_modules/
 target/
 *.wasm
 *.js
+!server.js
 *.d.ts
 .DS_Store
 .env
