@@ -22,7 +22,11 @@ COPY patches ./patches
 COPY src ./src
 COPY server.js ./
 
-RUN cargo build --release --bin validate_rdf_shacl
+# Use a debug build to avoid the LTO linker OOM on Render's free tier (512 MB).
+# The [profile.release] lto=true / opt-level="z" settings are for the WASM bundle
+# only; the native validation binary doesn't need them.
+ENV CARGO_BUILD_JOBS=2
+RUN cargo build --bin validate_rdf_shacl
 
 FROM node:20-bookworm-slim AS runtime
 
@@ -30,7 +34,7 @@ WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/server.js ./server.js
-COPY --from=builder /app/target/release/validate_rdf_shacl ./target/release/validate_rdf_shacl
+COPY --from=builder /app/target/debug/validate_rdf_shacl ./target/debug/validate_rdf_shacl
 
 ENV NODE_ENV=production
 EXPOSE 3001
