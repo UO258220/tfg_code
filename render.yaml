@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tfg-semantics-api
+    name: tfg-syntax-api
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
