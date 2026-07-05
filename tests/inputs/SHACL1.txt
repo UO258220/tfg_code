@@ -1,0 +1,26 @@
+@prefix ex: <http://example.org> .
+@prefix sh: <http://w3.org> .
+@prefix xsd: <http://w3.org> .
+
+ex:StudentShape
+a sh:NodeShape ;
+sh:targetClass ex:Student ;
+
+sh:property [
+	sh:path ex:firstName ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:string ;
+] ;
+
+sh:property [
+	sh:path ex:lastName ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:string ;
+] ;
+
+sh:property [
+	sh:path [ sh:inversePath ex:teachesStudent ] ;
+	sh:minCount 1 ;
+] .

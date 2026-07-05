@@ -1,0 +1,60 @@
+@prefix ex: <http://example.org/movie#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:MovieShape
+  a sh:NodeShape ;
+  sh:targetClass ex:Movie ;
+  sh:property [
+    sh:path ex:title ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path ex:releaseYear ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:gYear ;
+  ] ;
+  sh:property [
+    sh:path ex:directedBy ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class ex:Director ;
+  ] ;
+  sh:property [
+    sh:path ex:hasActor ;
+    sh:minCount 1 ;
+    sh:class ex:Actor ;
+  ] .
+
+ex:ActorShape
+  a sh:NodeShape ;
+  sh:targetClass ex:Actor ;
+  sh:property [
+    sh:path ex:fullName ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path [ sh:inversePath ex:hasActor ] ;
+    sh:minCount 1 ;
+    sh:class ex:Movie ;
+  ] .
+
+ex:DirectorShape
+  a sh:NodeShape ;
+  sh:targetClass ex:Director ;
+  sh:property [
+    sh:path ex:fullName ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path [ sh:inversePath ex:directedBy ] ;
+    sh:minCount 1 ;
+    sh:class ex:Movie ;
+  ] .

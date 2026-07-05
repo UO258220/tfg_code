@@ -1,0 +1,254 @@
+=== SYNTAX VALIDATION - LOCALHOST ===
+
+> tfg-wasm@0.1.0 test:load:syntax-validation
+> node tests/load/syntax-validation.load.js
+
+
+=== Syntax Validation Load Tests ===
+
+Iterations per scenario: 20
+
+✓ LOADS1-1: RDF1 + SHACL1 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 282.32
+  Min(ms): 172.64
+  Max(ms): 477.24
+
+  COMPLETED
+
+✓ LOADS1-2: RDF1_syn_errors + SHACL1 syntax timing
+  Runs: 20
+  Avg(ms): 190.72
+  Min(ms): 167.31
+  Max(ms): 214.52
+
+  COMPLETED
+
+✓ LOADS2-1: RDF2 + SHACL2 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 394.06
+  Min(ms): 370.07
+  Max(ms): 418.64
+
+  COMPLETED
+
+✓ LOADS2-2: RDF2_syn_errors + SHACL2 syntax timing
+  Runs: 20
+  Avg(ms): 396.64
+  Min(ms): 383.79
+  Max(ms): 410.96
+
+  COMPLETED
+
+✓ LOADS3-1: RDF3 + SHACL3 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 407.06
+  Min(ms): 378.64
+  Max(ms): 579.35
+
+  COMPLETED
+
+✓ LOADS3-2: RDF3_syn_errors + SHACL3 syntax timing
+  Runs: 20
+  Avg(ms): 390.37
+  Min(ms): 374.97
+  Max(ms): 472.62
+
+  COMPLETED
+
+=== Syntax Validation Load Tests Completed Successfully ===
+
+
+=== LEXICAL VALIDATION - LOCALHOST ===
+
+> tfg-wasm@0.1.0 test:load:lexical-validation
+> node tests/load/lexical-validation.load.js
+
+
+=== Lexical Validation Load Tests ===
+
+Iterations per scenario: 20
+
+✓ LOADL1-1: RDF1_lex_errors + SHACL1 lexical timing
+  Runs: 20
+  Avg(ms): 192.83
+  Min(ms): 168.68
+  Max(ms): 253.59
+
+  COMPLETED
+
+✓ LOADL1-2: RDF1 + SHACL1_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 189.02
+  Min(ms): 169.66
+  Max(ms): 210.24
+
+  COMPLETED
+
+✓ LOADL2-1: RDF2_lex_errors + SHACL2 lexical timing
+  Runs: 20
+  Avg(ms): 195.08
+  Min(ms): 175.52
+  Max(ms): 234.63
+
+  COMPLETED
+
+✓ LOADL2-2: RDF2 + SHACL2_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 198.61
+  Min(ms): 166.96
+  Max(ms): 243.65
+
+  COMPLETED
+
+✓ LOADL3-1: RDF3_lex_errors + SHACL3 lexical timing
+  Runs: 20
+  Avg(ms): 214.18
+  Min(ms): 174.11
+  Max(ms): 450.53
+
+  COMPLETED
+
+✓ LOADL3-2: RDF3 + SHACL3_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 181.16
+  Min(ms): 153.70
+  Max(ms): 262.71
+
+  COMPLETED
+
+=== Lexical Validation Load Tests Completed Successfully ===
+
+
+=== SYNTAX VALIDATION - PRODUCTION ===
+
+> tfg-wasm@0.1.0 test:load:syntax-validation
+> node tests/load/syntax-validation.load.js
+
+
+=== Syntax Validation Load Tests ===
+
+Iterations per scenario: 20
+
+✓ LOADS1-1: RDF1 + SHACL1 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 428.46
+  Min(ms): 358.57
+  Max(ms): 973.75
+
+  COMPLETED
+
+✓ LOADS1-2: RDF1_syn_errors + SHACL1 syntax timing
+  Runs: 20
+  Avg(ms): 153.73
+  Min(ms): 123.32
+  Max(ms): 170.72
+
+  COMPLETED
+
+✓ LOADS2-1: RDF2 + SHACL2 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 502.38
+  Min(ms): 360.98
+  Max(ms): 1023.17
+
+  COMPLETED
+
+✓ LOADS2-2: RDF2_syn_errors + SHACL2 syntax timing
+  Runs: 20
+  Avg(ms): 458.44
+  Min(ms): 348.86
+  Max(ms): 792.63
+
+  COMPLETED
+
+✓ LOADS3-1: RDF3 + SHACL3 syntax/conformance timing
+  Runs: 20
+  Avg(ms): 384.78
+  Min(ms): 334.80
+  Max(ms): 564.24
+
+  COMPLETED
+
+✓ LOADS3-2: RDF3_syn_errors + SHACL3 syntax timing
+  Runs: 20
+  Avg(ms): 406.74
+  Min(ms): 351.36
+  Max(ms): 583.45
+
+  COMPLETED
+
+=== Syntax Validation Load Tests Completed Successfully ===
+
+
+=== LEXICAL VALIDATION - PRODUCTION ===
+
+> tfg-wasm@0.1.0 test:load:lexical-validation
+> node tests/load/lexical-validation.load.js
+
+
+=== Lexical Validation Load Tests ===
+
+Iterations per scenario: 20
+
+✓ LOADL1-1: RDF1_lex_errors + SHACL1 lexical timing
+=== LEXICAL VALIDATION - PRODUCTION ===
+
+> tfg-wasm@0.1.0 test:load:lexical-validation
+> node tests/load/lexical-validation.load.js
+
+
+=== Lexical Validation Load Tests ===
+
+Iterations per scenario: 20
+
+✓ LOADL1-1: RDF1_lex_errors + SHACL1 lexical timing
+  Runs: 20
+  Avg(ms): 175.50
+  Min(ms): 144.65
+  Max(ms): 198.21
+
+  COMPLETED
+
+✓ LOADL1-2: RDF1 + SHACL1_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 162.95
+  Min(ms): 149.53
+  Max(ms): 183.37
+
+  COMPLETED
+
+✓ LOADL2-1: RDF2_lex_errors + SHACL2 lexical timing
+  Runs: 20
+  Avg(ms): 164.78
+  Min(ms): 134.87
+  Max(ms): 196.74
+
+  COMPLETED
+
+✓ LOADL2-2: RDF2 + SHACL2_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 158.84
+  Min(ms): 130.22
+  Max(ms): 171.98
+
+  COMPLETED
+
+✓ LOADL3-1: RDF3_lex_errors + SHACL3 lexical timing
+  Runs: 20
+  Avg(ms): 154.88
+  Min(ms): 127.50
+  Max(ms): 172.27
+
+  COMPLETED
+
+✓ LOADL3-2: RDF3 + SHACL3_lex_errors lexical timing
+  Runs: 20
+  Avg(ms): 161.60
+  Min(ms): 138.35
+  Max(ms): 233.32
+
+  COMPLETED
+
+=== Lexical Validation Load Tests Completed Successfully ===
+

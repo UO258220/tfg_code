@@ -1,0 +1,48 @@
+@prefix ex: <http://example.org/movie#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:coen
+  a ex:Director ;
+  ex:fullName "Joel Coen"^^xsd:string .
+
+ex:spielberg
+  a ex:Director ;
+  ex:fullName "Steven Spielberg"^^xsd:string .
+
+ex:villeneuve
+  a ex:Director ;
+  ex:fullName "Denis Villeneuve"^^xsd:string .
+
+ex:javierBardem
+  a ex:Actor ;
+  ex:fullName "Javier Bardem"^^xsd:string .
+
+ex:florencePugh
+  a ex:Actor ;
+  ex:fullName "Florence Pugh"^^xsd:string .
+
+ex:samNeill
+  a ex:Actor ;
+  ex:fullName "Sam Neill"^^xsd:string .
+
+ex:noCountryForOldMen
+  a ex:Movie ;
+  ex:title "No Country for Old Men"^^xsd:string ;
+  ex:releaseYear "2007"^^xsd:gYear ;
+  ex:directedBy ex:coen ;
+  ex:hasActor ex:javierBardem .
+
+ex:jurassicPark
+  a ex:Movie ;
+  ex:title "Jurassic Park"^^xsd:string ;
+  ex:releaseYear "1993"^^xsd:gYear ;
+  ex:directedBy ex:spielberg ;
+  ex:hasActor ex:samNeill .
+
+ex:dune
+  a ex:Movie ;
+  ex:title "Dune"^^xsd:string ;
+  ex:releaseYear "2021"^^xsd:gYear ;
+  ex:directedBy ex:villeneuve ;
+  ex:hasActor ex:javierBardem ;
+  ex:hasActor ex:florencePugh .

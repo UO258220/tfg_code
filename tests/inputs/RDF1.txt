@@ -1,0 +1,34 @@
+@prefix ex: <http://example.org> .
+@prefix xsd: <http://w3.org> .
+
+ex:miguel
+	a ex:Student ;
+	ex:firstName "Miguel"^^xsd:string ;
+	ex:lastName "Cuesta"^^xsd:string .
+
+ex:hugo
+	a ex:Student ;
+	ex:firstName "Hugo"^^xsd:string ;
+	ex:lastName "Fonseca"^^xsd:string .
+
+ex:migi
+	a ex:Student ;
+	ex:firstName "Migi"^^xsd:string ;
+	ex:lastName "R."^^xsd:string .
+
+ex:labra
+	a ex:Professor ;
+	ex:fullName "Jose Emilio Labra"^^xsd:string ;
+	ex:teachesSubject ex:asw ;
+	ex:teachesSubject ex:tfg ;
+	ex:teachesStudent ex:miguel ;
+	ex:teachesStudent ex:hugo ;
+	ex:teachesStudent ex:migi .
+
+ex:asw
+	a ex:Subject ;
+	ex:subjectCode "ASW"^^xsd:string .
+
+ex:tfg
+	a ex:Subject ;
+	ex:subjectCode "TFG"^^xsd:string .
