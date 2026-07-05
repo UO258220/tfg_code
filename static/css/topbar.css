@@ -1,0 +1,41 @@
+.topbar {
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(66, 153, 225, 0.2);
+  z-index: 999;
+  backdrop-filter: blur(12px);
+}
+
+.topbar__brand .logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.topbar__links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.topbar__link {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topbar__link:hover {
+  color: var(--accent);
+}
+
+.topbar__link.active {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
