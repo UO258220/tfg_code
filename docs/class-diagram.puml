@@ -1,0 +1,99 @@
+@startuml class_diagram
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam backgroundColor #FAFAFA
+
+title Main Application Class Diagram
+
+package "Frontend (TypeScript)" {
+  class "static/js/index.ts" as IndexTs {
+    +initWasm(): Promise<void>
+    +handleValidateRDF(): Promise<void>
+  }
+
+  class "static/js/validator.ts" as ValidatorTs {
+    +validateRDF(): Promise<void>
+  }
+
+  class "static/js/validators/rdf.ts" as RdfTs {
+    +validateRDFSyntax(inputText: string): ValidationResponse
+  }
+
+  class "static/js/validators/shacl.ts" as ShaclTs {
+    +validateSHACLSyntax(inputText: string): ValidationResponse
+  }
+
+  class "static/js/validators/syntax.ts" as SyntaxTs {
+    -getSyntaxApiUrl(): string
+    +validateRDFWithSHACL(rdfText: string, shaclText: string): ValidationResponse
+    +validateRDFWithSHACLServer(rdfText: string, shaclText: string): Promise<ValidationResponse>
+  }
+
+  class "static/js/validators/types.ts" as TypesTs {
+    <<interface>> ValidationResponse
+    <<interface>> ValidationViolation
+  }
+}
+
+package "Backend (Node.js)" {
+  class "server.js" as ServerJs {
+    +GET /api/health
+    +POST /api/validate-schema
+  }
+}
+
+package "Rust Core (src/validators)" {
+  class "common.rs" as CommonRs {
+    +ValidationViolation::new(message, path)
+    +ValidationResponse::success(message)
+    +ValidationResponse::failure(message, violations)
+    +ValidationResponse::with_report(report)
+  }
+
+  class "rdf.rs" as RdfRs {
+    +validate_rdf_syntax(input: &str): JsValue
+  }
+
+  class "shacl.rs" as ShaclRs {
+    +validate_shacl(input: &str): JsValue
+  }
+
+  class "syntax_wasm.rs" as SyntaxWasmRs {
+    +validate_rdf_with_shacl(rdf: &str, shacl: &str): ValidationResponse
+    +validate_rdf_with_shacl_js(rdf_input: &str, shacl_shapes: &str): JsValue
+  }
+
+  class "syntax_native.rs" as SyntaxNativeRs {
+    -serialize_validation_report(report): Result<String, String>
+    -report_to_violations(report): Vec<ValidationViolation>
+    +validate_rdf_with_shacl(rdf: &str, shacl: &str): ValidationResponse
+  }
+
+  class "validate_schema.rs" as ValidateSchemaRs {
+    -unix_timestamp_ms(): u128
+    -build_request_id(): String
+    -log_event(request_id, event, payload)
+    +main()
+  }
+}
+
+IndexTs --> ValidatorTs : calls
+ValidatorTs --> RdfTs : uses
+ValidatorTs --> ShaclTs : uses
+ValidatorTs --> SyntaxTs : uses
+RdfTs --> TypesTs
+ShaclTs --> TypesTs
+SyntaxTs --> TypesTs
+
+RdfTs ..> RdfRs : WASM export
+ShaclTs ..> ShaclRs : WASM export
+SyntaxTs ..> ServerJs : HTTP POST /api/validate-schema
+
+ServerJs ..> ValidateSchemaRs : runs native binary
+ValidateSchemaRs --> SyntaxNativeRs : calls
+SyntaxWasmRs --> CommonRs : builds response
+SyntaxNativeRs --> CommonRs : builds response
+RdfRs --> CommonRs : builds response
+ShaclRs --> CommonRs : builds response
+
+@enduml

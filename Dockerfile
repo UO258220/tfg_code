@@ -22,9 +22,6 @@ COPY patches ./patches
 COPY src ./src
 COPY server.js ./
 
-# Use a debug build to avoid the LTO linker OOM on Render's free tier (512 MB).
-# The [profile.release] lto=true / opt-level="z" settings are for the WASM bundle
-# only; the native validation binary doesn't need them.
 ENV CARGO_BUILD_JOBS=2
 RUN cargo build --bin validate_rdf_shacl
 

@@ -2,7 +2,7 @@ use crate::iri::IriS;
 use serde::Serialize;
 use thiserror::Error;
 
-/// Errors that can happen with IriS
+/// Errors that can happen with the IriS
 #[derive(Error, Debug, Clone, Serialize)]
 pub enum IriSError {
     /// Error converting path into an IRI

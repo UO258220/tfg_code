@@ -13,8 +13,6 @@ pub enum Iri {
 }
 
 impl Iri {
-    /// Converts a [`Iri`] represented as a [`String`] into a parsed [`Iri`] represented by a [`IriS`]
-    /// `base` is useful to obtain an absolute Iri
     pub fn resolve(self, base: Option<IriS>) -> Result<Iri, IriSError> {
         let iri = match self {
             Iri::String(s) => match base {
@@ -38,7 +36,7 @@ impl Display for Iri {
     }
 }
 
-// This is required by serde serialization
+// Required by serde serialization
 impl From<Iri> for String {
     fn from(val: Iri) -> Self {
         match val {

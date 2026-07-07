@@ -142,7 +142,6 @@ impl IriS {
     }
 
     /// [Dereference](https://www.w3.org/wiki/DereferenceURI) the IRI and get the content available from it.
-    /// It handles also IRIs with the `file` scheme as local file names. For example: `file:///person.txt`
     #[cfg(not(target_family = "wasm"))]
     pub fn dereference(&self, base: Option<&IriS>) -> Result<String, IriSError> {
         use reqwest::blocking::Client;
@@ -190,11 +189,6 @@ impl IriS {
             }
             _ => {
                 let mut headers = HeaderMap::new();
-                /* TODO: Add a parameter with the Accept header ?
-                headers.insert(
-                    ACCEPT,
-                    header::HeaderValue::from_static(""),
-                );*/
                 headers.insert(USER_AGENT, header::HeaderValue::from_static("rudof"));
                 let client = Client::builder()
                     .default_headers(headers)

@@ -1,0 +1,41 @@
+@startwbs wbs
+* RDF/SHACL Data Validation Web
+** Project Management
+*** Scope Definition with the Client
+*** Project Monitoring
+** Analysis
+*** Requirements gathering
+*** Feasibility Study for Rust + WASM
+*** Validation Domain Study
+*** Study of Alternatives
+*** Proposed Solution Definition
+** Design
+*** System Architecture
+*** Technology Decisions
+*** Data model for Responses and Violations
+*** Usability Design
+** Development
+*** Basic Rust Crate and Structure
+*** RDF Lexical Validation
+*** SHACL Lexical Validation
+*** WASM Integration
+*** TypeScript Validation Flow
+*** GitHub Pages Deployment
+*** RDF/SHACL Syntactical Validation
+*** Backend Express Server
+*** Binary Entrypoint
+*** Containerize Backend with Docker
+*** Render Deployment Setup
+** Testing
+*** Test Definition
+*** E2E Testing
+*** Load Testing
+*** Result Analysis
+** Documentation
+*** Report of Analysis
+*** Budget
+*** Diagram Extraction
+*** User Manual
+*** Programmer Manual
+*** Formatting and Cleanup
+@endwbs

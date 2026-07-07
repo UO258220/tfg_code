@@ -1,4 +1,4 @@
-# TFG Code - RDF & SHACL Validator
+# RDF / SHACL Validation Web Service
 
 A web application for validating RDF data against SHACL constraints using the RUDOF backend.
 
@@ -7,7 +7,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` to access the application. The backend API runs on port 3001.
+Visit `https://uo258220.github.io/tfg_code/` to access the application. The backend API runs on port 3001.
 
 ## Usage
 
@@ -26,14 +26,8 @@ Response: Validation result with any errors or conformance status.
 
 ## Commands
 
-- `npm start` - Start frontend (Vite on port 5173)
-- `npm run server` - Start backend (Express on port 3001)
+- `npm start` - Start frontend (Vite)
+- `npm run server` - Start backend (Express on port 3001 - Render)
 - `npm run dev` - Start both together
-- `npm run test` - Run E2E tests (navigation + usability)
+- `npm run test` - Run E2E tests
 - `npm run build:rust` - Build WebAssembly modules
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code
-
-## Testing
-
-Run `npm test` to execute the E2E test suite: 4 navigation tests and 8 usability tests. See [tests/e2e/](tests/e2e/) for details.

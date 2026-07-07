@@ -1,0 +1,53 @@
+@startgantt gantt
+title RDF/SHACL Web Validator - Project Plan (4h/day)
+Project starts 2026-01-22
+sunday are closed
+
+-- Project Management --
+[Scope Definition with the Client] as [PM1] lasts 5 days
+[Project Monitoring] as [PM2] lasts 80 days and starts at [PM1]'s start
+
+-- Analysis --
+[Requirements gathering] as [AN1] lasts 3 days and starts at [PM1]'s end
+[Feasibility Study for Rust + WASM] as [AN2] lasts 2 days and starts at [AN1]'s end
+[Validation Domain Study] as [AN3] lasts 4 days and starts at [AN2]'s end
+[Study of Alternatives] as [AN4] lasts 2 days and starts at [AN3]'s end
+[Proposed Solution Definition] as [AN5] lasts 3 days and starts at [AN4]'s end
+
+-- Documentation (Part 1) --
+[Report of Analysis] as [DOC1] lasts 6 days and starts at [AN5]'s end
+[Budget] as [DOC2] lasts 3 days and starts at [DOC1]'s end
+
+-- Design --
+[System Architecture] as [DE1] lasts 3 days and starts at [DOC2]'s end
+[Technology Decisions] as [DE2] lasts 2 days and starts at [DE1]'s end
+[Data model for Responses and Violations] as [DE3] lasts 4 days and starts at [DE2]'s end
+[Usability Design] as [DE4] lasts 1 days and starts at [DE3]'s end
+
+-- Development --
+[Basic Rust Crate and Structure] as [DV1] lasts 5 days and starts at [DE4]'s end
+[RDF Lexical Validation] as [DV2] lasts 4 days and starts at [DV1]'s end
+[SHACL Lexical Validation] as [DV3] lasts 4 days and starts at [DV2]'s end
+[WASM Integration] as [DV4] lasts 3 days and starts at [DV3]'s end
+[TypeScript Validation Flow] as [DV5] lasts 4 days and starts at [DV4]'s end
+[GitHub Pages Deployment] as [DV6] lasts 5 days and starts at [DV5]'s end
+[RDF/SHACL Syntactical Validation] as [DV7] lasts 5 days and starts at [DV6]'s end
+[Backend Express Server] as [DV8] lasts 3 days and starts at [DV7]'s end
+[Binary Entrypoint] as [DV9] lasts 2 days and starts at [DV8]'s end
+[Containerize Backend with Docker] as [DV10] lasts 3 days and starts at [DV9]'s end
+[Render Deployment Setup] as [DV11] lasts 4 days and starts at [DV10]'s end
+
+-- Documentation (Part 2) --
+[Diagram Extraction] as [DOC3] lasts 3 days and starts at [DV11]'s end
+[User Manual] as [DOC4] lasts 2 days and starts at [DOC3]'s end
+[Programmer Manual] as [DOC5] lasts 2 days and starts at [DOC4]'s end
+
+-- Testing --
+[Test Definition] as [TS1] lasts 5 days and starts at [DOC5]'s end
+[E2E Testing] as [TS2] lasts 3 days and starts at [TS1]'s end
+[Load Testing] as [TS3] lasts 4 days and starts at [TS2]'s end
+[Result Analysis] as [TS4] lasts 3 days and starts at [TS3]'s end
+
+-- Documentation (Part 3) --
+[Formatting and Cleanup] as [DOC6] lasts 3 days and starts at [TS4]'s end
+@endgantt

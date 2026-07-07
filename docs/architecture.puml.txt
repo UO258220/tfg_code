@@ -1,0 +1,57 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam backgroundColor #FAFAFA
+skinparam defaultTextAlignment center
+
+title Web Application Architecture
+
+package "rudof (external)" <<external>> {
+  [srdf]
+  [shacl_rs]
+}
+
+package "Rust crate (src/)" {
+  [validate_rdf_syntax]
+  [validate_shacl_syntax]
+  [validate_rdf_with_shacl]
+}
+
+[validate_rdf_syntax]   ..> [srdf]      : uses
+[validate_shacl_syntax] ..> [shacl_rs]  : uses
+[validate_rdf_with_shacl] ..> [srdf]    : uses
+[validate_rdf_with_shacl] ..> [shacl_rs]: uses
+
+package "Backend — Render" {
+  [server.js\n(Express API)] as server
+  [validate_rdf_shacl\n(native binary)] as bin
+}
+
+server --> bin : generates
+bin --> [validate_rdf_with_shacl] : links to
+
+package "Frontend — GitHub Pages" {
+  [index.html] as index
+  [about.html] as about
+
+  package "TypeScript (static/)" {
+    [validator.ts] as vts
+    [rdf.ts]       as rts
+    [shacl.ts]     as sts
+    [syntax.ts]    as synts
+  }
+
+  [tfg_wasm\n(WASM bundle)] as wasm
+}
+
+index   --> vts   : loads
+vts     --> rts   : calls
+vts     --> sts   : calls
+vts     --> synts : calls
+rts     --> wasm  : validate_rdf_syntax()
+sts     --> wasm  : validate_shacl_syntax()
+synts   ..> server : POST /api/validate-schema
+
+wasm --> [validate_rdf_syntax]
+wasm --> [validate_shacl_syntax]
+@enduml
