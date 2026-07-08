@@ -4,6 +4,7 @@ target/
 *.js
 !server.js
 !tests/e2e/*.js
+!tests/load/*.js
 *.d.ts
 .DS_Store
 .env
