@@ -3,6 +3,7 @@ target/
 *.wasm
 *.js
 !server.js
+!tests/e2e/*.js
 *.d.ts
 .DS_Store
 .env
